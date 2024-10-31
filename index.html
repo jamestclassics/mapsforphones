@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map Index</title>
+
+    <!-- Stylesheet for FontAwesome icons -->
+    <link rel="stylesheet" href="resources/fontawesome-all.min.css">
+
+    <style>
+        /* Basic Styling */
+        body {
+            background-color: #f3f3f3; /* Light grey background */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; /* Change to flex-start for normal flow */
+            min-height: 100vh; /* Ensure the body takes at least the full viewport height */
+        }
+
+        /* Container for links */
+        .link-container {
+            background-color: #ffffff; /* White background for the link container */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 90%; /* Set to 90% for responsiveness */
+            margin: 20px; /* Add margin for spacing */
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2em;
+            margin: 30px 0; /* Adjust margin for spacing */
+        }
+
+        .map-link {
+            display: inline-block;
+            margin: 10px 0; /* Vertical spacing */
+            padding: 15px 30px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1.1em;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: calc(100% - 20px); /* Full width minus padding */
+        }
+
+        .map-link:hover {
+            background-color: #45a049;
+        }
+
+        .map-link i {
+            margin-right: 8px; /* Space between icon and text */
+        }
+
+        /* Description style */
+        .description {
+            font-size: 0.9em;
+            color: #555; /* Darker grey for descriptions */
+            margin-top: 5px;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #333; /* Dark background for footer */
+            color: white; /* White text color */
+            padding: 10px 0;
+            text-align: center;
+            width: 100%;
+            margin-top: auto; /* Ensures footer stays at the bottom */
+            position: relative; /* Ensures proper placement */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Page Title -->
+    <h1>Welcome to my Mapping Assignment</h1>
+
+    <!-- Container for Links -->
+    <div class="link-container">
+        <!-- Links to Different Maps -->
+        <a class="map-link" href="webmap1/map1.html"><i class="fas fa-map-marked-alt"></i> Map of Mayo Beaches</a>
+        <p class="description"><i class="fas fa-image"></i> A map showing beautiful beaches in County Mayo, Ireland.</p> <!-- Description for Map 1 -->
+
+        <a class="map-link" href="webmap2/map2.html"><i class="fas fa-gas-pump"></i> Service Stations in England</a>
+        <p class="description"><i class="fas fa-road"></i> Service stations across England to help travelers find fuel easily.</p> <!-- Description for Map 2 -->
+
+        <a class="map-link" href="webmap3/map3.html"><i class="fas fa-city"></i> Irish Towns</a>
+        <p class="description"><i class="fas fa-map"></i> A comprehensive map of towns in Ireland.</p> <!-- Description for Map 3 -->
+
+        <a class="map-link" href="webmap4/map4.html"><i class="fas fa-university"></i> Dublin Colleges</a>
+        <p class="description"><i class="fas fa-graduation-cap"></i> Explore various colleges located in Dublin.</p> <!-- Description for Map 4 -->
+
+        <!-- Link to Iframe Page -->
+        <a class="map-link" href="map_iframes.html"><i class="fas fa-window-restore"></i> View Maps in Iframes</a>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 James Treanor. All Rights Reserved.</p>
+        <p>Date: October 31, 2024</p>
+    </footer>
+
+</body>
+</html>

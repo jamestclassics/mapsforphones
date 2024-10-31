@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="./resources/ol.css">
+    <link rel="stylesheet" href="resources/fontawesome-all.min.css">
+    <link href="resources/ol-geocoder.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./resources/ol-layerswitcher.css">
+    <link rel="stylesheet" href="./resources/qgis2web.css">
+    
+    <style>
+        html, body {
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            height: 100%; /* Full height */
+        }
+        
+        #map {
+            width: 100%;
+            height: 100%;
+            position: relative; /* For positioning of images and thumbnail */
+        }
+
+        .ol-control > * {
+            background-color: #f8f8f8!important;
+            color: #444444!important;
+            border-radius: 0px;
+        }
+        .ol-attribution a, .gcd-gl-input::placeholder, .search-layer-input-search::placeholder {
+            color: #444444!important;
+        }
+        .search-layer-input-search {
+            background-color: #f8f8f8!important;
+        }
+        .ol-control > *:focus, .ol-control >*:hover {
+            background-color: rgba(248, 248, 248, 0.7)!important;
+        } 
+        .ol-control {
+            background-color: rgba(255,255,255,.4) !important;
+            padding: 2px !important;
+        } 
+
+        /* Centered Back to Home Link Styling */
+        .back-to-home {
+            position: fixed;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: #ddd;
+            color: #333;
+            border-radius: 4px;
+            text-decoration: none;
+            z-index: 1000;
+            font-weight: bold;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+        }
+        .back-to-home:hover {
+            background-color: #ccc;
+        }
+
+        /* Image and Video Thumbnail Styles */
+        .side-image {
+            position: absolute;
+            width: 40%; /* Responsive width */
+            max-width: 200px; /* Limit max width */
+            z-index: 10;
+        }
+        #town1 {
+            top: 580px; /* Adjust based on your layout */
+            right: 10px; /* Align with right edge */
+        }
+        #town2 {
+            top: 400px; /* Adjusted position for the second image */
+            right: 10px; /* Align with right edge */
+        }
+        .video-thumbnail {
+            position: absolute;
+            width: 40%; /* Responsive width */
+            max-width: 200px; /* Limit max width */
+            cursor: pointer;
+            top: 300px; /* Adjusted position for the thumbnail */
+            right: 10px; /* Align with right edge */
+            z-index: 11;
+            text-align: center;
+            background-color: rgba(255, 165, 0, 0.7);
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        .video-thumbnail img {
+            width: 100%;
+            border-radius: 8px; /* Rounded corners for the image */
+            border: 2px solid #fff; /* White border for contrast */
+        }
+
+        /* Lightbox styling */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        .lightbox iframe {
+            width: 80%;
+            height: 80%;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .back-to-home {
+                font-size: 14px; /* Smaller font size for mobile */
+            }
+            .side-image,
+            .video-thumbnail {
+                width: 80%; /* Wider on smaller screens */
+                max-width: none; /* Remove max width limit */
+            }
+        }
+    </style>
+    <title>Irish Towns</title>
+</head>
+<body>
+    <!-- Back to Home Link Centered at Top -->
+    <a href="../index.html" class="back-to-home">&larr; Back to Home</a>
+
+    <!-- Map Container -->
+    <div id="map">
+        <div id="popup" class="ol-popup">
+            <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+            <div id="popup-content"></div>
+        </div>
+        
+        <!-- Images and Video Thumbnail -->
+        <img src="images/town1.jpg" id="town1" class="side-image" alt="Town 1 Image">
+        <img src="images/town2.jpg" id="town2" class="side-image" alt="Town 2 Image">
+        
+        <!-- Video Thumbnail -->
+        <div class="video-thumbnail" onclick="openLightbox()">
+            <img src="images/towns_video_thumbnail.jpg" alt="Towns Video Thumbnail">
+            <p>Watch: Dublin Towns</p>
+        </div>
+    </div>
+
+    <!-- Lightbox overlay for video -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <iframe id="video-frame" src="https://www.youtube.com/embed/cUGq9e2mGE8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+
+    <!-- Scripts for Map Functionality -->
+    <script src="resources/qgis2web_expressions.js"></script>
+    <script src="resources/proj4.js"></script>
+    <script>
+        proj4.defs('EPSG:3857','+proj=merc +a=6378137 +b=6378137 +lat_ts=0 +lon_0=0 +x_0=0 +y_0=0 +k=1 +units=m +nadgrids=@null +wktext +no_defs');
+    </script>
+    <script src="./resources/functions.js"></script>
+    <script src="./resources/ol.js"></script>
+    <script src="./resources/ol-layerswitcher.js"></script>
+    <script src="./resources/ol-geocoder.js"></script>
+    <script src="layers/IrishTowns_1.js"></script>
+    <script src="styles/IrishTowns_1_style.js"></script>
+    <script src="./layers/layers.js" type="text/javascript"></script> 
+    <script src="./resources/Autolinker.min.js"></script>
+    <script src="./resources/qgis2web.js"></script>
+
+    <script>
+        function openLightbox() {
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
